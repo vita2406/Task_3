@@ -41,17 +41,12 @@ class UserAPI:
             "name": TEST_NAME
         }
 
-        print("REGISTER")
 
         response = UserAPI._post(
             f"{API_URL}/auth/register",
             payload
         )
 
-        print(response.status_code)
-        print(response.text)
-
-        print("\nLOGIN")
 
         login = UserAPI._post(
             f"{API_URL}/auth/login",
@@ -61,8 +56,6 @@ class UserAPI:
             }
         )
 
-        print(login.status_code)
-        print(login.text)
 
         data = login.json()
 

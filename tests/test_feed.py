@@ -14,7 +14,7 @@ class TestFeed:
 
         main_page.open_feed()
 
-        assert "feed" in driver.current_url
+        assert main_page.feed_opened()
 
     @allure.title("Открытие модального окна заказа")
     def test_open_order_modal(self, driver):

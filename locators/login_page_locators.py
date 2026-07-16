@@ -5,25 +5,20 @@ class LoginPageLocators:
 
     EMAIL_INPUT = (
         By.XPATH,
-        "//*[@id='root']/div/main/div/form/fieldset[1]/div/div/input"
+        "//input[@name='name']"
     )
 
     PASSWORD_INPUT = (
         By.XPATH,
-        "//*[@id='root']/div/main/div/form/fieldset[2]/div/div/input"
+        "//input[@type='password']"
     )
 
     LOGIN_BUTTON = (
         By.XPATH,
-        "//*[@id='root']/div/main/div/form/button"
+        "//button[contains(text(),'Войти')]"
     )
 
     FORGOT_PASSWORD_LINK = (
         By.XPATH,
-        "//a[text()='Восстановить пароль']"
-    )
-
-    ERROR_TEXT = (
-        By.XPATH,
-        "//p[contains(@class,'input__error')]"
+        "//a[contains(text(),'Восстановить пароль')]"
     )

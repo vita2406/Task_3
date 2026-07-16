@@ -1,24 +1,34 @@
 from selenium.webdriver.common.by import By
 
 
-class ForgotPasswordLocators:
+class ForgotPasswordPageLocators:
 
     EMAIL_INPUT = (
         By.XPATH,
-        "//input[@type='text']"
+        "//label[contains(text(),'Email')]/following-sibling::input"
     )
 
-    RECOVER_BUTTON = (
+    RECOVERY_BUTTON = (
         By.XPATH,
-        "//button[text()='Восстановить']"
+        "//button[contains(text(),'Восстановить')]"
     )
 
     PASSWORD_INPUT = (
         By.XPATH,
-        "//input[@name='Введите новый пароль']"
+        "//label[contains(text(),'Пароль')]/following-sibling::input"
     )
 
     SHOW_PASSWORD_BUTTON = (
         By.XPATH,
-        "//div[contains(@class,'input__icon')]"
+        "//input[@type='password']/following-sibling::div"
+    )
+
+    SAVE_BUTTON = (
+        By.XPATH,
+        "//button[contains(text(),'Сохранить')]"
+    )
+    
+    LOGIN_LINK = (
+    By.XPATH,
+    "//a[contains(text(),'Войти')]"
     )

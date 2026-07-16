@@ -1,5 +1,4 @@
 import allure
-from selenium.webdriver.support import expected_conditions as EC
 
 from pages.main_page import MainPage
 from pages.login_page import LoginPage
@@ -11,11 +10,30 @@ class TestPasswordRecovery:
 
     @allure.title("Переход на страницу восстановления")
     def test_open_recovery_page(self, driver):
-        ...
+
+        main_page = MainPage(driver)
+        login_page = LoginPage(driver)
+        recovery = ForgotPasswordPage(driver)
+
+        main_page.open_login()
+        login_page.open_recovery_page()
+
+        assert recovery.recovery_page_opened()
 
     @allure.title("Ввод email")
     def test_enter_email(self, driver):
-        ...
+
+        main_page = MainPage(driver)
+        login_page = LoginPage(driver)
+        recovery = ForgotPasswordPage(driver)
+
+        main_page.open_login()
+        login_page.open_recovery_page()
+
+        recovery.enter_email("test@test.ru")
+        recovery.click_recover()
+
+        assert recovery.reset_password_page_opened()
 
     @allure.title("Кнопка показать пароль")
     def test_show_password(self, driver):
@@ -30,9 +48,7 @@ class TestPasswordRecovery:
         recovery.enter_email("test@test.ru")
         recovery.click_recover()
 
-        recovery.wait.until(
-            EC.url_contains("reset-password")
-        )
+        assert recovery.reset_password_page_opened()
 
         recovery.enter_new_password("123456")
         recovery.click_show_password()

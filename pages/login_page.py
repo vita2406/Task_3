@@ -1,35 +1,26 @@
-from selenium.webdriver.support import expected_conditions as EC
+import allure
 
-from pages.base_page import BasePage
 from locators.login_page_locators import LoginPageLocators
-from locators.main_page_locators import MainPageLocators
+from pages.base_page import BasePage
 
 
 class LoginPage(BasePage):
 
+    @allure.step("Авторизация пользователя")
     def login(self, email, password):
         self.send_keys(LoginPageLocators.EMAIL_INPUT, email)
         self.send_keys(LoginPageLocators.PASSWORD_INPUT, password)
-
         self.click(LoginPageLocators.LOGIN_BUTTON)
 
-        # Ждем успешной авторизации
-        self.wait.until(
-            lambda driver: "/login" not in driver.current_url
-        )
+        self.wait_url_not_contains("/login")
 
-        # Ждем появления кнопки "Личный кабинет"
-        self.wait.until(
-            EC.visibility_of_element_located(
-                MainPageLocators.PROFILE_BUTTON
-            )
-        )
+    @allure.step("Проверить успешную авторизацию")
+    def login_successful(self):
+        self.wait_url_not_contains("/login")
+        return not self.url_contains("/login")
 
+    @allure.step("Открыть страницу восстановления пароля")
     def open_recovery_page(self):
         self.click(LoginPageLocators.FORGOT_PASSWORD_LINK)
+        self.wait_for_url_contains("forgot-password")
 
-    def get_error_text(self):
-        try:
-            return self.get_text(LoginPageLocators.ERROR_TEXT)
-        except Exception:
-            return "Ошибка не найдена"
